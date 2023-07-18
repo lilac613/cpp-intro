@@ -21,3 +21,18 @@ int main()
 
   return 0;
 }
+
+int subtract(int x, int y){
+  // returns difference of x and y
+  return x-y;
+}
+
+int multiply(int x, int y){
+  // returns product of x and y 
+  return x*y;
+}
+
+int divide(int x, int y){
+  // returns division of x and y
+  return x/y;
+}
