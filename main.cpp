@@ -31,23 +31,25 @@ class Circle{
 };
 
 class Point{
-  private:
+  /*private:
     double x;
-    double y;
+    double y;*/
   public:
-    Point(double x, double y){
+    /*Point(double x, double y){
       this->x = x;
       this->y = y;
-    }
+    }*/
+    double x;
+    double y;
     double distance_to_origin(){
       double distance = std::pow(std::pow(x,2) + std::pow(y,2),0.5);
       return distance;
     }
     double distance_to_point(Point p){
-      double distance = std::abs(std::pow(std::pow(p.get_x() - x,2) + std::pow(p.get_y() - y,2),0.5));
+      double distance = std::abs(std::pow(std::pow(p.x - x,2) + std::pow(p.y - y,2),0.5));
       return distance;
     }
-    double get_x(){
+    /*double get_x(){
       return x;
     }
     double get_y(){
@@ -58,44 +60,58 @@ class Point{
     }
     void change_y(double amt){
       y+=amt;
-    }
+    }*/
 };
 
 class Line{
-  private:
+  /*private:
     Point p1;
-    Point p2;
+    Point p2;*/
   public:
-    Line(Point p1, Point p2){
+    /*Line(Point p1, Point p2){
       this->p1 = p1;
       this->p2 = p2;
-    }
+    }*/
+    Point p1;
+    Point p2;
     double length(){
       return p1.distance_to_point(p2);
     }
     double distance_to_point(Point p){
-      double numerator = std::abs((p2.get_x()-p1.get_x())*(p1.get_y() - p.get_y()) - (p1.get_x() - p.get_x())*(p2.get_y()-p1.get_y()));
-      double denominator = std::pow(std::pow(p2.get_x()-p1.get_x(),2)+std::pow(p2.get_y()-p1.get_y(),2),0.5);
+      double numerator = std::abs((p2.x-p1.x)*(p1.y - p.y) - (p1.x - p.x)*(p2.y-p1.y));
+      double denominator = std::pow(std::pow(p2.x-p1.x,2)+std::pow(p2.y-p1.y,2),0.5);
       return numerator/denominator;
     }
 };
 
 class Triangle{
-  private:
+  /*private:
     Point p1;
     Point p2;
-    Point p3;
+    Point p3;*/
   public:
-  // p1, p2, and p3 need parameters because there is no null constructor
+  /*// p1, p2, and p3 need parameters because there is no null constructor
     Triangle(Point p1, Point p2, Point p3){
       this->p1 = p1;
       this->p2 = p2;
       this->p3 = p3;
-    }
+    }*/
+      Point p1;
+      Point p2;
+      Point p3;
     double area(){
-      Line side1 = Line(p1,p2);
+      /*Line side1 = Line(p1,p2);
       Line side2 = Line(p2,p3);
-      Line side3 = Line(p1,p3);
+      Line side3 = Line(p1,p3);*/
+      Line side1;
+      side1.p1 = p1;
+      side1.p2 = p2;
+      Line side2;
+      side2.p1 = p2;
+      side2.p2 = p3;
+      Line side3;
+      side3.p1 = p1;
+      side3.p2 = p3;
       double s = (side1.length() + side2.length() + side3.length()/2);
       double area = std::pow(s*(s-side1.length())*(s-side2.length())*(s-side3.length()),0.5);
       return area;
@@ -104,16 +120,20 @@ class Triangle{
 };
 
 class Polygon{
-  private:
-    std::vector<Point> vec;
+  /*private:
+    std::vector<Point> vec;*/
   public:
-    Polygon(std::vector<Point> vec){
+    std::vector<Point> vec;
+    /*Polygon(std::vector<Point> vec){
       this->vec = vec;
-    }
+    }*/
     double area(){
       double sum = 0.0;
       for(int i =1; i < vec.size()-1; i++){
-        Triangle t = Triangle(vec[0],vec[i],vec[i+1]);
+        Triangle t;
+        t.p1 = vec[0];
+        t.p2 = vec[i];
+        t.p3 = vec[i+1];
         sum += t.area();
       }
       return sum;
@@ -137,8 +157,8 @@ class AUV{
     std::array<double,3> speed;
     double angular_speed;
     void step(double dt){
-      position.change_x(speed[0]*dt);
-      position.change_y(speed[1]*dt);
+      position.x += (speed[0]*dt);
+      position.y += (speed[1]*dt);
       depth += speed[2]*dt;
       heading += angular_speed*dt;
     }
