@@ -44,8 +44,14 @@ class Point{
       return distance;
     }
     double distance_to_point(const Point p){
-      double distance = std::abs(std::pow(std::pow(p.x - x,2) + std::pow(p.y - y,2),0.5));
+      double distance = std::abs(std::pow(std::pow(p.get_x() - x,2) + std::pow(p.get_y() - y,2),0.5));
       return distance;
+    }
+    double get_x(){
+      return x;
+    }
+    double get_y(){
+      return y;
     }
 };
 
@@ -60,6 +66,10 @@ class Line{
     }
     double length(){
       return p1.distance_to_point(p2);
+    }
+    double distance_to_point(Point p){
+      // write this function
+      return 0.0;
     }
 };
 
@@ -103,12 +113,9 @@ class Polygon{
     double perimeter(){
       double sum = 0.0;
       for(int i = 0; i < vec.size()-1; i++){
-        // use distance from points
-        Line l = Line(vec[i],vec[i+1]);
-        sum += l.length();
+        sum += vec[i].distance_to_point(vec[i+1];)
       }
-      Line k = Line(vec[0],vec[vec.size()-1]);
-      sum += k.length();
+      sum += vec[0].distance_to_point(vec.size()-1);
       return sum;
     }
 };
@@ -122,8 +129,8 @@ class AUV{
     std::array<double,3> speed;
     double angular_speed;
     void step(const double dt){
-      position.x += speed[0]*dt;
-      position.y += speed[1]*dt;
+      position.get_x() += speed[0]*dt;
+      position.get_y() += speed[1]*dt;
       depth += speed[2]*dt;
       heading += angular_speed*dt;
     }
