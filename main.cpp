@@ -74,7 +74,6 @@ class Line{
       return p1.distance_to_point(p2);
     }
     double distance_to_point(Point p){
-      // write this function
       double numerator = std::abs((p2.get_x()-p1.get_x())*(p1.get_y() - p.get_y()) - (p1.get_x() - p.get_x())*(p2.get_y()-p1.get_y()));
       double denominator = std::pow(std::pow(p2.get_x()-p1.get_x(),2)+std::pow(p2.get_y()-p1.get_y(),2),0.5);
       return numerator/denominator;
@@ -87,6 +86,7 @@ class Triangle{
     Point p2;
     Point p3;
   public:
+  // p1, p2, and p3 need parameters because there is no null constructor
     Triangle(Point p1, Point p2, Point p3){
       this->p1 = p1;
       this->p2 = p2;
